@@ -291,7 +291,7 @@ def file_append(index_name,user,file_name,data):
     tempfile_name = '文件名'
     sheet_name = '清洗结果'
     file_path = os.path.join(file_path,clean_type,down_path,down_date,user)
-    if not os.path.exists(file_path)
+    if not os.path.exists(file_path):
         os.mkdir(file_path)
     ori_path = os.path.join(os.getcwd(),'文件名',tempfile_name)
     file_name = file_name.replace('csv','xlsx')
@@ -308,5 +308,19 @@ def file_append(index_name,user,file_name,data):
     writer.save()
     return file_path,file_name
 
-def files
+def files_download(indexname):
+    pyor = py2oracle()
+    try:
+        user = request.args.get('user')
+        sql = "从数据库抽取数据"
+        featchall = pyor.search_data(sql)
+        data = pd.DataFrame(featchall,columns=['',''])
+        file_path, file_name = file_append(index_name=indexname, user=user,data=data)
+        return send_from_directory(directory=file_path,path=file_name,as_attachment=True)
+    except Exception as e:
+        response = e
+        return response
+
+
+
 

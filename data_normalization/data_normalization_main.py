@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# @Time    :20222022/8/29下午4:59
+# @Time    :20222022/8/30下午4:31
 # @Author  : yubq
 # @Software: PyCharm
 # @Software: PyCharm
@@ -32,21 +32,11 @@
                相顾无言，惟有泪千行。
             每晚灯火阑珊处，夜难寐，加班狂。
 '''
-from flask import Flask,request
-from data_normalization.data_normalization_main import app_data
+from flask import Blueprint
 
 
-app = Flask(__name__)
-app.register_blueprint(app_data)
+app_data = Blueprint("app_data",__name__,url_prefix='/data_test')
 
-@app.route('/')
-def start():
-    return 'welcome'
-
-
-
-
-
-if __name__ == '__main__':
-    app.config['JSON_AS_ASCII'] = False
-    app.run('127.0.0.1',port=8080)
+@app_data.route('/index/')
+def data_index():
+    pass
